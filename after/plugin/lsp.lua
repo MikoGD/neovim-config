@@ -112,7 +112,7 @@ require'lspconfig'.volar.setup {
     end
   end
 }
--- require'lspconfig'.vuels.setup {}
+require'lspconfig'.eslint.setup{}
 
 
 local cmp = require('cmp')
