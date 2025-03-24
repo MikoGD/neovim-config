@@ -19,7 +19,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
-    local opts = {buffer = event.buf}
+    local opts = { buffer = event.buf }
 
     vim.keymap.set('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
     vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
@@ -28,7 +28,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<M-f>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
     vim.keymap.set('n', '<leader>vrr', function() vim.lsp.buf.references() end, opts)
@@ -36,23 +35,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>vca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts)
     vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set({ 'n', 'x' }, '<leader>vf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
   end,
 })
 
 -- You'll find a list of language servers here:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
--- These are example language servers. 
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.css_variables.setup{}
-require'lspconfig'.cssls.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.lua_ls.setup {
+-- These are example language servers.
+require 'lspconfig'.bashls.setup {}
+require 'lspconfig'.css_variables.setup {}
+require 'lspconfig'.cssls.setup {}
+require 'lspconfig'.gopls.setup {}
+require 'lspconfig'.html.setup {}
+require 'lspconfig'.jsonls.setup {}
+require 'lspconfig'.lua_ls.setup {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
-      if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc')) then
+      if path ~= vim.fn.stdpath('config') and (vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc')) then
         return
       end
     end
@@ -81,14 +81,14 @@ require'lspconfig'.lua_ls.setup {
     Lua = {}
   }
 }
-require'lspconfig'.sqls.setup{}
-require'lspconfig'.ts_ls.setup {
+require 'lspconfig'.sqls.setup {}
+require 'lspconfig'.ts_ls.setup {
   init_options = {
     plugins = {
       {
         name = "@vue/typescript-plugin",
         location = "/Users/miko/Library/pnpm/global/5/node_modules/@vue/typescript-plugin",
-        languages = {"javascript", "typescript", "vue"},
+        languages = { "javascript", "typescript", "vue" },
       },
     },
   },
@@ -98,7 +98,7 @@ require'lspconfig'.ts_ls.setup {
     "vue",
   },
 }
-require'lspconfig'.volar.setup {
+require 'lspconfig'.volar.setup {
   init_options = {
     typescript = {
       -- replace with your global TypeScript library path
@@ -112,14 +112,15 @@ require'lspconfig'.volar.setup {
     end
   end
 }
-require'lspconfig'.eslint.setup{}
+require 'lspconfig'.eslint.setup {}
+require 'lspconfig'.ccls.setup {}
 
 
 local cmp = require('cmp')
 
 cmp.setup({
   sources = {
-    {name = 'nvim_lsp'},
+    { name = 'nvim_lsp' },
   },
   snippet = {
     expand = function(args)
