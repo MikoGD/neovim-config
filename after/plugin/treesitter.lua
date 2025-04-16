@@ -7,6 +7,7 @@ require'nvim-treesitter.configs'.setup {
 		"html",
 		"scss",
 		"json",
+    "jsdoc",
 		"vue",
 		"go",
 		"bash",
