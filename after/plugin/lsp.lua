@@ -42,13 +42,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- You'll find a list of language servers here:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 -- These are example language servers.
-require 'lspconfig'.bashls.setup {}
-require 'lspconfig'.css_variables.setup {}
-require 'lspconfig'.cssls.setup {}
-require 'lspconfig'.gopls.setup {}
-require 'lspconfig'.html.setup {}
-require 'lspconfig'.jsonls.setup {}
-require 'lspconfig'.lua_ls.setup {
+vim.lsp.enable('bashls')
+vim.lsp.enable('css_variables')
+vim.lsp.enable('cssls')
+vim.lsp.enable('gopls')
+vim.lsp.enable('html')
+vim.lsp.enable('jsonls')
+vim.lsp.config('lua_ls', {
   on_init = function(client)
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
@@ -80,14 +80,14 @@ require 'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {}
   }
-}
-require 'lspconfig'.sqls.setup {}
-require 'lspconfig'.ts_ls.setup {
+})
+vim.lsp.enable('sqls')
+vim.lsp.config('ts_ls', {
   init_options = {
     plugins = {
       {
         name = "@vue/typescript-plugin",
-        location = "/Users/miko/Library/pnpm/global/5/node_modules/@vue/typescript-plugin",
+        location = "/home/miko/.local/share/pnpm/global/5/node_modules/@vue/typescript-plugin",
         languages = { "javascript", "typescript", "vue" },
       },
     },
@@ -97,23 +97,20 @@ require 'lspconfig'.ts_ls.setup {
     "typescript",
     "vue",
   },
-}
-require 'lspconfig'.volar.setup {
+})
+
+vim.lsp.config("vue_ls", {
   init_options = {
     typescript = {
-      -- replace with your global TypeScript library path
-      tsdk = "/Users/miko/Library/pnpm/global/5/node_modules/@vue/typescript-plugin"
+      tsdk = "/home/miko/.local/share/pnpm/global/5/node_modules/@vue/typescript-plugin"
     }
-  },
-  on_new_config = function(new_config, new_root_dir)
-    local lib_path = vim.fs.find('node_modules/typescript/lib', { path = new_root_dir, upward = true })[1]
-    if lib_path then
-      new_config.init_options.typescript.tsdk = lib_path
-    end
-  end
-}
-require 'lspconfig'.eslint.setup {}
-require 'lspconfig'.ccls.setup {}
+  }
+})
+
+vim.lsp.enable('eslint')
+vim.lsp.enable('ccls')
+
+vim.lsp.enable('csharp_ls')
 
 
 local cmp = require('cmp')
