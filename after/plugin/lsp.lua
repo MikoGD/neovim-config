@@ -112,6 +112,7 @@ vim.lsp.enable('ccls')
 
 vim.lsp.enable('csharp_ls')
 
+vim.lsp.enable('dartls')
 
 local cmp = require('cmp')
 
